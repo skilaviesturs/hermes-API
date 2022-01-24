@@ -1,19 +1,16 @@
-import os
-import inspect
+# database.py
 from sqlalchemy import create_engine, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import sqlite3 as sl
+from .config import settings
 
 
-filename = inspect.getframeinfo(inspect.currentframe()).filename
-path = os.path.dirname(os.path.abspath(filename))
+# SQLITE3 part
+DBNAME = settings.dbname
 
-#SQLITE3 part
-DBNAME = f"{path}\\db\\devbase.db"
-
-#SQLALCHEMY part
-SQLALCHEMY_DATABASE_URL = f"sqlite:///{path}\db\devbase.db"
+# SQLALCHEMY part
+SQLALCHEMY_DATABASE_URL = f"sqlite:///{settings.sql_alchemy_database_path}"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
@@ -33,6 +30,7 @@ def get_db():
     finally:
         db.close()
 
+
 def execute_sql(*args):
     '''
     Izpilda sql pieprasījumu datu bāzē\n
@@ -47,9 +45,9 @@ def execute_sql(*args):
         if len(args) == 1:
             cur.execute(sql_expresion)
         elif len(args) == 2:
-            cur.execute(sql_expresion,(args[1],))
+            cur.execute(sql_expresion, (args[1],))
         else:
-            cur.execute(sql_expresion,(args[1],args[2]))
+            cur.execute(sql_expresion, (args[1], args[2]))
     result = cur.fetchall()
     conn.commit()
     conn.close()

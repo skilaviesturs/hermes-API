@@ -2,7 +2,6 @@
 from fastapi import FastAPI, Depends
 
 
-
 from . import models
 from .database import engine
 from .routers import computer, logs, users, auth, admin, owner
@@ -20,9 +19,3 @@ app.include_router(users.router)
 app.include_router(computer.router)
 app.include_router(logs.router)
 app.include_router(owner.router)
-
-'''
-@app.get("/")
-def root():
-    return { "Details": "This is root"}
-'''
