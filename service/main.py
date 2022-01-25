@@ -7,7 +7,7 @@ from .database import engine
 from .routers import computer, logs, users, auth, admin, owner
 
 # SQLAlchemie create all tables from models
-models.Base.metadata.create_all(bind=engine)
+# models.Base.metadata.create_all(bind=engine)
 
 # inicalizējam instanci
 #app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
