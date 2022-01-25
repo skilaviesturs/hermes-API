@@ -14,8 +14,8 @@ class Owner(Base):
     firstname = Column(String, nullable=False)
     lastname = Column(String, nullable=True)
     department = Column(String, nullable=True)
-    created_at = Column(String, nullable=True)
-    updated_at = Column(String, nullable=True)
+    created_at = Column(TIMESTAMP, nullable=True)
+    updated_at = Column(TIMESTAMP, nullable=True)
 
 
 class Computer(Base):
@@ -29,8 +29,8 @@ class Computer(Base):
     ram = Column(String, nullable=True)
     ipv4 = Column(String, nullable=True, unique=True)
     mac = Column(String, nullable=True, unique=True)
-    created_at = Column(String, nullable=True)
-    updated_at = Column(String, nullable=True)
+    created_at = Column(TIMESTAMP, nullable=True)
+    updated_at = Column(TIMESTAMP, nullable=True)
 
     owner_id = Column(Integer, ForeignKey("owner.id"), server_default=text('0'))
     owner = relationship("Owner")
@@ -48,8 +48,8 @@ class Disk(Base):
     size = Column(Integer, nullable=False)
     free = Column(Integer, nullable=False)
     disk_type = Column(Integer, nullable=True)
-    created_at = Column(String, nullable=True)
-    updated_at = Column(String, nullable=True)
+    created_at = Column(TIMESTAMP, nullable=True)
+    updated_at = Column(TIMESTAMP, nullable=True)
 
     id_computer = Column(Integer, ForeignKey("computer.id"), nullable=False)
     computer = relationship("Computer", viewonly=True)
@@ -61,7 +61,7 @@ class Events(Base):
     id = Column(Integer, primary_key=True)
     event_time = Column(String, nullable=False)
     message = Column(String, nullable=False)
-    created_at = Column(String, nullable=True)
+    created_at = Column(TIMESTAMP, nullable=True)
 
     id_computer = Column(Integer, ForeignKey("computer.id"), nullable=False)
     computer = relationship("Computer", viewonly=True)
@@ -74,8 +74,8 @@ class Software(Base):
     id_computer = Column(Integer, nullable=False)
     ident_number = Column(String, nullable=False)
     version = Column(String, nullable=False)
-    created_at = Column(String, nullable=True)
-    updated_at = Column(String, nullable=True)
+    created_at = Column(TIMESTAMP, nullable=True)
+    updated_at = Column(TIMESTAMP, nullable=True)
 
     id_computer = Column(Integer, ForeignKey("computer.id"), nullable=False)
     computer = relationship("Computer", viewonly=True)
@@ -108,5 +108,5 @@ class Users(Base):
     email = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
     disabled = Column(Boolean, server_default=text('False'))
-    created_at = Column(String, nullable=True)
-    updated_at = Column(String, nullable=True)
+    created_at = Column(TIMESTAMP, nullable=True)
+    updated_at = Column(TIMESTAMP, nullable=True)
