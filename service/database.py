@@ -2,18 +2,18 @@
 from sqlalchemy import create_engine, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import sqlite3 as sl
+# import sqlite3 as sl
+import psycopg2
+from psycopg2.extras import RealDictCursor
 from .config import settings
 
 
 # SQLITE3 part
-DBNAME = settings.dbname
+# DBNAME = settings.dbname
 
 # SQLALCHEMY part
-SQLALCHEMY_DATABASE_URL = f"sqlite:///{settings.sql_alchemy_database_path}"
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}"
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -39,8 +39,19 @@ def execute_sql(*args):
     3rd argument: 2nd value
     '''
     sql_expresion = args[0]
-    conn = sl.connect(DBNAME)
-    cur = conn.cursor()
+
+    while True:
+        try:
+            conn = psycopg2.connect(host={settings.database_hostname}, port={settings.database_port},
+                                    database={settings.database_name}, user={settings.database_username}, 
+                                    password={settings.database_password}, cursor_factory=RealDictCursor)
+            cur = conn.cursor()
+            print("Database connections was successful.")
+            break
+        except Exception as error:
+            print("Connection to database failed!")
+            print("Error: ", error)
+
     with conn:
         if len(args) == 1:
             cur.execute(sql_expresion)
