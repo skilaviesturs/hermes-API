@@ -40,17 +40,10 @@ def execute_sql(*args):
     '''
     sql_expresion = args[0]
 
-    while True:
-        try:
-            conn = psycopg2.connect(host={settings.database_hostname}, port={settings.database_port},
-                                    database={settings.database_name}, user={settings.database_username}, 
-                                    password={settings.database_password}, cursor_factory=RealDictCursor)
-            cur = conn.cursor()
-            print("Database connections was successful.")
-            break
-        except Exception as error:
-            print("Connection to database failed!")
-            print("Error: ", error)
+    conn = psycopg2.connect(host=f'{settings.database_hostname}', port=f'{settings.database_port}',
+                            database=f'{settings.database_name}', user=f'{settings.database_username}',
+                            password=f'{settings.database_password}', cursor_factory=RealDictCursor)
+    cur = conn.cursor()
 
     with conn:
         if len(args) == 1:
