@@ -1,9 +1,7 @@
 # main.py
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 
 
-from . import models
-from .database import engine
 from .routers import computer, logs, users, auth, admin, owner
 
 # SQLAlchemie create all tables from models

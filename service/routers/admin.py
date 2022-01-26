@@ -1,6 +1,5 @@
 #admin.py
 from fastapi import FastAPI, APIRouter, Depends, status, HTTPException
-import sqlalchemy
 from sqlalchemy.orm import Session
 from .. utils import oauth2
 

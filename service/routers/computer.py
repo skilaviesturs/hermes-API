@@ -1,5 +1,4 @@
 # computer.py
-from asyncio.windows_events import NULL
 from fastapi import APIRouter, Depends, status, HTTPException
 import sqlalchemy
 from sqlalchemy.orm import Session
