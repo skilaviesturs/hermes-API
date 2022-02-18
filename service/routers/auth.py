@@ -15,7 +15,9 @@ router = APIRouter(
 @router.post("/token", response_model=schemas.Token)
 async def login(user_credentials: OAuth2PasswordRequestForm = Depends(),
           db: Session = Depends(database.get_db)):
-
+    '''
+    # Autorizācija: autorizē lietotāju un atgriež tokenu
+    '''
     # OAuth2PasswordRequestForm returns dict: username and password
 
     user = db.query(models.Users).filter(

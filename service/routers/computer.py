@@ -23,8 +23,8 @@ router = APIRouter(
 async def create_computer(create_computer: schemas.CreateComputer,
                     db: Session = Depends(get_db),
                     current_user: int = Depends(oauth2.get_current_user)):
-    '''
-    CREATE computer
+        '''
+    # Izveidojam datoru
     '''
     # datorvārdu pārmainām uz lower case
     _computername = create_computer.name.lower()
@@ -76,7 +76,7 @@ async def create_computer(create_computer: schemas.CreateComputer,
 async def get_computer(db: Session = Depends(get_db),
                  current_user: int = Depends(oauth2.get_current_user)):
     '''
-    GET all computers
+    # Atgriežam informāciju par visiem datoriem 
     '''
     computers = db.query(models.Computer).join(models.Owner, models.Computer.owner_id==models.Owner.id).all()
 
@@ -98,8 +98,7 @@ async def update_computer(update_computer: schemas.UpdateComputer,
                     db: Session = Depends(get_db),
                     current_user: int = Depends(oauth2.get_current_user)):
     '''
-    UPDATE computer
-    Pārrakstam tikai parametrus ar vērtībām ()
+    # Aktualizējam tikai datoru vērtības, kuras ir aizpildītas
     '''
     # datorvārdu pārmainām uz lower case
     _computername = update_computer.name.lower()
@@ -161,7 +160,7 @@ async def check_is_computer(computername,
                      db: Session = Depends(get_db),
                      current_user: int = Depends(oauth2.get_current_user)):
     '''
-    Atgriežam True vai False
+    # Atgriež true, ja datora vārds eksistē datu bāzē, savādāk atgriež false
     '''
     _computername = computername.lower()
     result = findid.computer_id(_computername, db)
