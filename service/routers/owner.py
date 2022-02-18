@@ -27,7 +27,7 @@ async def create_owner(create_owner: schemas.CreateOwner,
                        db: Session = Depends(get_db),
                        current_user: int = Depends(oauth2.get_current_user)):
     '''
-    CREATE owner
+    # Izveidojam īpašnieka ierakstu
     '''
     create_owner.firstname = create_owner.firstname.lower()
     create_owner.lastname = create_owner.lastname.lower()
@@ -79,7 +79,7 @@ async def create_owner(create_owner: schemas.CreateOwner,
 async def get_owner(db: Session = Depends(database.get_db),
                     current_user: int = Depends(oauth2.get_current_user)):
     '''
-    GET all owners
+    # Izgūstam visus īpašniekus
     '''
     owners = db.query(models.Owner).all()
     if not owners:
@@ -100,7 +100,7 @@ async def update_owner(update_owner: schemas.UpdateOwner,
                        db: Session = Depends(database.get_db),
                        current_user: int = Depends(oauth2.get_current_user)):
     '''
-    UPDATE owner
+    # Aktualizējam īpašnieka informāciju
     '''
     print("Update owner param:")
     print(update_owner)

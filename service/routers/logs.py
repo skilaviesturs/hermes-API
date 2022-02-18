@@ -21,7 +21,7 @@ router = APIRouter(
 async def get_all_logs(db: Session = Depends(get_db),
                        current_user: int = Depends(oauth2.get_current_user)):  # , response_model=schemas.ReturnLog
     '''
-    #Izgūstam visus žurnalēšanas notikumus
+    # Izgūstam visus žurnalēšanas notikumus
     # TODO: jāizdomā kā samapot vienā skatā rezultātus arī no sastītajām tabulām - Computer, LogFlag
     '''
     # logs = db.query(models.Log).all()
@@ -62,7 +62,7 @@ async def create_log(computername, log: schemas.CreateLog,
                      db: Session = Depends(get_db),
                      current_user: int = Depends(oauth2.get_current_user)):
     '''
-    Ieraksta žurnalēšanas notikumu db esošam datoram
+    # Ieraksta žurnalēšanas notikumu db esošam datoram
     '''
     computer_id = findid.computer_id(computername, db)
     if computer_id:
@@ -92,7 +92,7 @@ async def create_log(computername, log: schemas.CreateLog,
 async def get_computer_logs(computername, db: Session = Depends(get_db),
                             current_user: int = Depends(oauth2.get_current_user)):
     '''
-    Izgūstam visus datora žurnalēšanas notikumus
+    # Izgūstam visus datora žurnalēšanas notikumus
     '''
     # atrodam datora unikālo ID
     computer_id = findid.computer_id(computername, db)
