@@ -23,7 +23,7 @@ router = APIRouter(
 async def create_computer(create_computer: schemas.CreateComputer,
                     db: Session = Depends(get_db),
                     current_user: int = Depends(oauth2.get_current_user)):
-        '''
+    '''
     # Izveidojam datoru
     '''
     # datorvārdu pārmainām uz lower case
