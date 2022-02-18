@@ -24,7 +24,7 @@ async def create_computer(create_computer: schemas.CreateComputer,
                     db: Session = Depends(get_db),
                     current_user: int = Depends(oauth2.get_current_user)):
     '''
-    # Izveidojam datoru
+    # Izveidojam datora ierakstu
     '''
     # datorvārdu pārmainām uz lower case
     _computername = create_computer.name.lower()
